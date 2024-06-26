@@ -1,2 +1,1 @@
-from EfficientNetB0Classifier import EfficienetBOClassifier
-import utils
+from models.EfficientNetB0ClassifierModel import *

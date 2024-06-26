@@ -1,10 +1,10 @@
 import torch
 from torch import nn
-from image_models import PretrainedEfficienNetBO
-from networks import TwoHiddenLayerClassifier
+from models.image_models import PretrainedEfficienNetBO
+from models.networks import TwoHiddenLayerClassifier
 
 
-class EfficienetBOClassifier(nn.Module):
+class EfficientNetB0Classifier(nn.Module):
     def __init__(self):
         super().__init__()
 

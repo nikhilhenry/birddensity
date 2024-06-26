@@ -9,7 +9,7 @@ class TwoHiddenLayerClassifier(nn.Module):
         self.model = nn.Sequential(
             nn.Linear(in_features=input_shape, out_features=hidden_units),
             nn.ReLU(),
-            nn.Linear(in_features=hidden_units, out_features=hidden_units // 2),
+            nn.Linear(in_features=hidden_units, out_features=1),
         )
 
     def forward(self, x: torch.Tensor):
