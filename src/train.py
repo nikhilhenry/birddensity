@@ -53,6 +53,8 @@ model = EfficientNetB0Classifier().to(device)
 loss_fn = torch.nn.BCEWithLogitsLoss()
 optimizer = torch.optim.Adam(model.parameters(), lr=0.001)
 
+writer = utils.create_writer("Baseline", "EfficientNetB0Classifier")
+
 engine.train(
     model,
     train_dataloader,
@@ -61,6 +63,9 @@ engine.train(
     loss_fn,
     epochs=18,
     device=device,
+    writer=writer,
 )
 
-utils.save_model(model, target_dir="./artifacts", model_name="EfficientNetB0Classifier")
+utils.save_model(
+    model, target_dir="./artifacts", model_name="EfficientNetB0Classifier.pth"
+)
