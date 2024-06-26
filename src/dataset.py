@@ -11,6 +11,7 @@ class CapuchinBirdCallDataset(Dataset):
         negative_folder: Path,
         sample_rate: int,
         num_frames: int,
+        transforms=None,
     ) -> None:
         super().__init__()
         self.sample_rate = sample_rate
@@ -36,6 +37,7 @@ class CapuchinBirdCallDataset(Dataset):
         )
 
         self.amplitude_to_db = torchaudio.transforms.AmplitudeToDB()
+        self.transforms = transforms
 
     def load_mono_audio(self, clip_path: Path) -> torch.Tensor:
         clip_waveform, clip_sample_rate = torchaudio.load(clip_path)
@@ -61,4 +63,7 @@ class CapuchinBirdCallDataset(Dataset):
         spectrogram = self.amplitude_to_db(self.gen_spectrogram(resampled_clip))
         # stack the spectrogram for rgb input
         spectrogram = spectrogram.expand(3, -1, -1)
+        if self.transforms:
+            spectrogram = self.transforms(spectrogram)
+
         return spectrogram, label
