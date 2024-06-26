@@ -4,6 +4,7 @@ from dataset import CapuchinBirdCallDataset
 from torch.utils.data import DataLoader
 from models import EfficientNetB0Classifier
 import engine
+import utils
 
 # Setup device-agnostic code
 if torch.cuda.is_available():
@@ -61,3 +62,5 @@ engine.train(
     epochs=18,
     device=device,
 )
+
+utils.save_model(model, target_dir="./artifacts", model_name="EfficientNetB0Classifier")
