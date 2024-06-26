@@ -1,14 +1,14 @@
 import torch
 from torch import nn
-from models.image_models import PretrainedEfficienNetBO
+from models.image_models import PretrainedResNet50
 from models.networks import TwoHiddenLayerClassifier
 
 
-class EfficientNetB0Classifier(nn.Module):
+class ResNet50Classifier(nn.Module):
     def __init__(self):
         super().__init__()
 
-        self.features = PretrainedEfficienNetBO()
+        self.features = PretrainedResNet50()
         classifier_in_features = self.features.out_features
         self.classifier = TwoHiddenLayerClassifier(
             input_shape=classifier_in_features, hidden_units=500

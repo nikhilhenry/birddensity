@@ -2,7 +2,7 @@ import torch
 from pathlib import Path
 from dataset import CapuchinBirdCallDataset
 from torch.utils.data import DataLoader
-from models import EfficientNetB0Classifier
+from models import ResNet50Classifier
 import engine
 import utils
 
@@ -48,12 +48,12 @@ test_dataloader = DataLoader(
     dataset=test_dataset, batch_size=32, num_workers=WORKERS, shuffle=True
 )
 
-model = EfficientNetB0Classifier().to(device)
+model = ResNet50Classifier().to(device)
 
 loss_fn = torch.nn.BCEWithLogitsLoss()
 optimizer = torch.optim.Adam(model.parameters(), lr=0.001)
 
-writer = utils.create_writer("Baseline", "EfficientNetB0Classifier")
+writer = utils.create_writer("Baseline", "ResNet50Classifier")
 
 engine.train(
     model,
@@ -66,6 +66,4 @@ engine.train(
     writer=writer,
 )
 
-utils.save_model(
-    model, target_dir="./artifacts", model_name="EfficientNetB0Classifier.pth"
-)
+utils.save_model(model, target_dir="./artifacts", model_name="ResNet50Classifier.pth")
