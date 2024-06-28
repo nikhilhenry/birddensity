@@ -7,11 +7,12 @@ from tqdm.auto import tqdm
 from typing import Dict, List, Tuple
 from torchmetrics.classification import BinaryAccuracy
 from torch.utils.tensorboard.writer import SummaryWriter
+from torch.utils.data import DataLoader
 
 
 def train_step(
     model: torch.nn.Module,
-    dataloader: torch.utils.data.DataLoader,
+    dataloader: DataLoader,
     loss_fn: torch.nn.Module,
     optimizer: torch.optim.Optimizer,
     device: torch.device,
@@ -51,7 +52,7 @@ def train_step(
 
 def test_step(
     model: torch.nn.Module,
-    dataloader: torch.utils.data.DataLoader,
+    dataloader: DataLoader,
     loss_fn: torch.nn.Module,
     device: torch.device,
 ) -> Tuple[float, float]:
@@ -80,8 +81,8 @@ def test_step(
 
 def train(
     model: torch.nn.Module,
-    train_dataloader: torch.utils.data.DataLoader,
-    test_dataloader: torch.utils.data.DataLoader,
+    train_dataloader: DataLoader,
+    test_dataloader: DataLoader,
     optimizer: torch.optim.Optimizer,
     loss_fn: torch.nn.Module,
     epochs: int,

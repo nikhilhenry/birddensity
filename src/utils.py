@@ -26,9 +26,7 @@ def save_model(model: torch.nn.Module, target_dir: str, model_name: str):
     torch.save(obj=model.state_dict(), f=model_save_path)
 
 
-def create_writer(
-    experiment_name: str, model_name: str
-) -> torch.utils.tensorboard.writer.SummaryWriter():
+def create_writer(experiment_name: str, model_name: str) -> SummaryWriter:
 
     timestamp = datetime.now().strftime("%Y-%m-%d")
 
