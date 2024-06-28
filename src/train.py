@@ -1,19 +1,20 @@
 import torch
 from pathlib import Path
 from dataset import CapuchinBirdCallDataset
-from torch.utils.data import DataLoader
+from torch.utils.data import DataLoader, random_split
 from models import ResNet50Classifier
 import engine
 import utils
 
 # Setup device-agnostic code
 if torch.cuda.is_available():
-    device = "cuda"  # NVIDIA GPU
+    device = torch.device("cuda", 0)  # NVIDIA GPU
     torch.cuda.empty_cache()
 elif torch.backends.mps.is_available():
-    device = "mps"  # Apple GPU
+    device = torch.device("mps")  # Apple GPU
 else:
-    device = "cpu"  # Defaults to CPU if NVIDIA GPU/Apple GPU aren't available
+    # Defaults to CPU if NVIDIA GPU/Apple GPU aren't available
+    device = torch.device("cpu")
 
 print(f"Using device: {device}")
 
@@ -37,7 +38,7 @@ capuchin_call_dataset = CapuchinBirdCallDataset(
 )
 
 train_test_split_generator = torch.Generator().manual_seed(42)
-train_dataset, test_dataset = torch.utils.data.random_split(
+train_dataset, test_dataset = random_split(
     capuchin_call_dataset, [0.8, 0.2], generator=train_test_split_generator
 )
 
